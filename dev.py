@@ -1,13 +1,24 @@
 import pyray as pr
 from rubik import Rubik
 import configs
+import numpy as np
 
 pr.init_window(configs.window_w, configs.window_h, "Rubik's Cube")
 
 rubik_cube = Rubik()
+rotation_queue = [(-1.5707963267948966, np.array([0, 0, 1]), 2),
+                  (-1.5707963267948966, np.array([1, 0, 0]), 2),
+                  (-1.5707963267948966, np.array([0, 0, 1]), 0)]
+
+
+
 pr.set_target_fps(configs.fps)
 
 while not pr.window_should_close():
+
+    rotation_queue, animation_step = rubik_cube.handle_rotation(rotation_queue)
+
+
     pr.update_camera(configs.camera, pr.CAMERA_ORBITAL)
     pr.begin_drawing()
     pr.clear_background(pr.RAYWHITE)
