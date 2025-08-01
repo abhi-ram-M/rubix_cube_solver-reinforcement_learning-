@@ -1,9 +1,17 @@
 import pyray as pr
 from rubik import Rubik
+# from cube_keybindings import handle_cube_keypress
 import configs
 import numpy as np
 
 pr.init_window(configs.window_w, configs.window_h, "Rubik's Cube")
+camera = pr.Camera3D(
+    [0.0, 0.0, 20.0],
+    [0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0],
+    45.0, 0      
+)
+camera.projection = pr.CAMERA_PERSPECTIVE
 
 rubik_cube = Rubik()
 rotation_queue = [(-1.5707963267948966, np.array([0, 0, 1]), 2),
@@ -18,8 +26,6 @@ while not pr.window_should_close():
 
     rotation_queue, animation_step = rubik_cube.handle_rotation(rotation_queue)
 
-
-    pr.update_camera(configs.camera, pr.CAMERA_ORBITAL)
     pr.begin_drawing()
     pr.clear_background(pr.RAYWHITE)
     pr.begin_mode_3d(configs.camera)

@@ -171,8 +171,11 @@ class Rubik:
                     animation_step += 1
             
             for id,cube in enumerate(self.cubes):
-                axis_index = np.nonzero(self.rotation_axis)[0][0]
-
+                self.rotation_axis = np.atleast_1d(self.rotation_axis)
+                nonzero_indices = np.nonzero(self.rotation_axis)[0]
+                if len(nonzero_indices) == 0:
+                    raise ValueError(f"rotation_axis is invalid for rotation: {self.rotation_axis}")
+                axis_index = nonzero_indices[0]
                 if id in self.segment:
                     for part_id, _ in enumerate(cube):
                         if self.target_rotation > 0:
