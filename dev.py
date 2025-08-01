@@ -3,6 +3,7 @@ from rubik import Rubik
 # from cube_keybindings import handle_cube_keypress
 import configs
 import numpy as np
+from utils import generate_random_moments
 
 pr.init_window(configs.window_w, configs.window_h, "Rubik's Cube")
 camera = pr.Camera3D(
@@ -14,10 +15,7 @@ camera = pr.Camera3D(
 camera.projection = pr.CAMERA_PERSPECTIVE
 
 rubik_cube = Rubik()
-rotation_queue = [(-1.5707963267948966, np.array([0, 0, 1]), 2),
-                  (-1.5707963267948966, np.array([1, 0, 0]), 2),
-                  (-1.5707963267948966, np.array([0, 0, 1]), 0)]
-
+rotation_queue = generate_random_moments(5)
 
 
 pr.set_target_fps(configs.fps)
